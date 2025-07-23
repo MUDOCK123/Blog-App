@@ -54,8 +54,8 @@ app.use(flash());
 // Configurando middleware:
 
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("Sucesso"); // A mensagem de sucesso é definida no middleware e pode ser acessada nas views.
-  res.locals.error_msg = req.flash("Erro!"); // A mensagem de erro é definida no middleware e pode ser acessada nas views.
+  res.locals.success_msg = req.flash("success_msg"); // A mensagem de sucesso é definida no middleware e pode ser acessada nas views.
+  res.locals.error_msg = req.flash("error_msg"); // A mensagem de erro é definida no middleware e pode ser acessada nas views.
   next(); // O next() é chamado para passar o controle para o próximo middleware na pilha.
 });
 

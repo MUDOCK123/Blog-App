@@ -43,7 +43,12 @@ router.post("/admin", (req, res) => {
 
   if (erros.length > 0) {
     // Se houver qualquer erro dentro do array de erros, renderiza o erro na página de admin
-    res.render("admin/pageAdmin", { erros: erros });
+
+    // Estou mapeando o array de erros para exibir as mensagens de erro na página de admin
+    // O map percorre cada erro no array e extrai a mensagem de erro, juntando-as em uma única string separada por quebras de linha
+    // O join("<br>") é usado para separar as mensagens de erro com uma quebra de linha HTML
+    req.flash("error_msg", erros.map((e) => e.mensagemDeErro).join("<br>")) // O flash é para exibir mensagens de erro temporárias, assim que o usuário recarregar a página, a mensagem de erro não será mais exibida.
+    return res.redirect("/admin"); // Redireciona para a página de admin novamente, só que com as mensagens de erro;
   } else {
     res.render("admin/admin"); // Se não houver erros, renderiza a página de admin
 
@@ -57,10 +62,10 @@ router.post("/admin", (req, res) => {
     admin
       .save()
       .then(() => {
-        console.log("Cadastro de admin realizado com sucesso!");
+        req.flash("success_msg", "Cadastro de admin realizado com sucesso!");
       })
       .catch((err) => {
-        console.log(`Erro ao cadastrar admin: ${err}`);
+        req.flash("error_msg", `Erro ao cadastrar admin`);
       });
   }
 });
