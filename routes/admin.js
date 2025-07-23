@@ -47,7 +47,9 @@ router.post("/admin", (req, res) => {
   } else {
     res.render("admin/admin"); // Se não houver erros, renderiza a página de admin
 
-    const admin = new adminSchema({ // Se não houver erros, ele salva os dados do admin no banco de dados
+    // Depois que passar do formulário de admin, os dados preenchidos nos campos de login e senha serão salvos no banco de dados MongoDB.
+    const admin = new adminSchema({
+      // Se não houver erros, ele salva os dados do admin no banco de dados
       login: req.body.login,
       password: req.body.senha,
     });
@@ -61,8 +63,6 @@ router.post("/admin", (req, res) => {
         console.log(`Erro ao cadastrar admin: ${err}`);
       });
   }
-
-  // Depois que passar do formulário de admin, os dados preenchidos nos campos de login e senha serão salvos no banco de dados MongoDB.
 });
 
 router.get("/post", (req, res) => {
