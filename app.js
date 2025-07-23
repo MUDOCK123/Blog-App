@@ -69,10 +69,6 @@ app.get("/admin", (req, res) => {
   res.render("./admin/pageAdmin");
 });
 
-app.get("/error", (req, res) => {
-  res.render("./admin/error");
-});
-
 // Rota de admin, tem o /admin no início porque é a rota base de admin e está com o admin na frente, porque está sendo importadas as rotas do arquivo routes/admin.js. Exemplo: http://localhost:8081/admin/categoria
 app.use("/admin", admin);
 

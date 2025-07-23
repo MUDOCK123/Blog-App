@@ -42,8 +42,8 @@ router.post("/admin", (req, res) => {
   }
 
   if (erros.length > 0) {
-    // Se houver qualquer erro no array de erros, renderiza a página de erro
-    res.render("admin/error", { erros: erros });
+    // Se houver qualquer erro dentro do array de erros, renderiza o erro na página de admin
+    res.render("admin/pageAdmin", { erros: erros });
   } else {
     res.render("admin/admin"); // Se não houver erros, renderiza a página de admin
 
