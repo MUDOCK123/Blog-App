@@ -136,9 +136,14 @@ router.post("/categoria/success", async (req, res) => {
   }
 });
 
-router.post("/categoria/success/edit/:id", (req, res) => {
+// Rota para editar as categorias
+
+// A rota GET é pra apenas mostrar o campo de edição.
+router.get("/categoria/success/edit/:id", (req, res) => {
+  // Pega o id do endpoint
   const id = req.params.id;
 
+  // Filtra o id no banco de dados e manda ele para essa rota.
   Categorias.findById(id)
     .lean()
     .then((categorias) => {
@@ -148,9 +153,34 @@ router.post("/categoria/success/edit/:id", (req, res) => {
       } else {
         res.render("admin/editCategories", { categorias });
       }
-    }).catch((err) => {
+    })
+    .catch((err) => {
       res.status(500).send(`Erro: ${err}`);
     });
+});
+
+// A rota post é para enviar a atualização para o banco de dados.
+router.post("/categoria/success/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const { nome, tipo } = req.body;
+
+  if (!nome || nome === undefined || nome === null || nome.trim() === "") {
+    req.flash("error_msg", "Insira o nome da categoria!");
+    return res.redirect(`/admin/categoria/success/edit/${id}`);
+  }
+
+  if (!tipo || tipo === undefined || tipo === null || tipo.trim() === "") {
+    req.flash("error_msg", "Insira o tipo de categoria!");
+    return res.redirect(`/admin/categoria/success/edit/${id}`);
+  }
+
+  Categorias.findByIdAndUpdate(id, { nomeDaCategoria: nome.trim(), tipoDeCategoria: tipo.trim(), }).then(() => { // O .trim() é para não deixar espaços em branco, servindo para caso o usuário não inserir dados no input e acabar salvando no banco.
+    req.flash("success_msg", "Dados atualizados com sucesso");
+    return res.redirect(`/admin/categoria/success/edit/${id}`);
+  }).catch(() => {
+    req.flash("error_msg", "erro ao enviar dados!")
+    return res.redirect(`/admin/categoria/success/edit/${id}`);
+  })
 });
 
 module.exports = router;
