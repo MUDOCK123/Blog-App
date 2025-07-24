@@ -1,19 +1,18 @@
 <div>
-    <h3>Nova categoria</h3>
+    <h3>Editar categoria</h3>
     <div class="card mt-4">
         <div class="card-body">
             <form action="/admin/categoria/success" method="POST">
                 <div class="form-group mb-3">
                     <label for="nome">Nome da Categoria:</label>
-                    <input type="text" class="form-control" id="nome" name="nome">
+                    <input type="text" class="form-control" id="nome" name="nome" value={{categorias.nomeDaCategoria}}>
                 </div>
                 <div class="form-group mb-3">
                     <label for="tipo">Tipo:</label>
-                    <input type="text" class="form-control" id="tipo" name="tipo">
+                    <input type="text" class="form-control" id="tipo" name="tipo" value={{categorias.tipoDeCategoria}}>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <button type="submit" class="btn btn-success" name="buttonAddCategories">Adicionar Categoria</button>
-                    <button type="submit" class="btn btn-success" name="buttonViewCategories">Ver Categorias</button>
+                    <button type="submit" class="btn btn-success" name="buttonAddCategories">Editar</button>
                 </div>
             </form>
         </div>

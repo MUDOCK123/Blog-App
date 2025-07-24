@@ -5,10 +5,6 @@ require("./db");
 // Esse arquivo cria o documento do banco de dados que será usado para armazenar as categorias do blog.
 
 const CategoriaSchema = new mongoose.Schema({
-  idDaCategoria: {
-    type: Number,
-    required: true,
-  },
   nomeDaCategoria: {
     type: String,
     required: true,

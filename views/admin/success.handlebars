@@ -1,22 +1,19 @@
 {{#each categorias}}
 <div class="card">
     <div class="card-body">
-        <form action="/categoria/success/{{id}}" method="DELETE"></form>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3>Categorias:</h3>
-            <h4>{{this.nomeDaCategoria}}</h4>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <h3>Tipo:</h3>
-            <h4>{{this.tipoDeCategoria}}</h4>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <h3>ID da categoria:</h3>
-            <h4>{{this.idDaCategoria}}</h4>
-        </div>
-        <div class="d-flex justify-content-end">
-            <button class="btn btn-dark" name="buttonDelete">Deletar</button> <!-- @index é usado para identificar qual categoria deve ser deletada -->
-        </div>
+        <form action="/admin/categoria/success/edit/{{this._id}}" method="POST">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3>Categorias:</h3>
+                <h4>{{this.nomeDaCategoria}}</h4>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h3>Tipo:</h3>
+                <h4>{{this.tipoDeCategoria}}</h4>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-dark" name="buttonAcess" type="submit">Acessar</button>
+        </form>
     </div>
+</div>
 </div>
 {{/each}}

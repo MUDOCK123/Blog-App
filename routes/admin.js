@@ -58,7 +58,7 @@ router.get("/post", (req, res) => {
 });
 
 router.get("/categoria", (req, res) => {
-  res.render("admin/category");
+  res.render("admin/categorie");
 });
 
 // Renderizando a página para adicionar uma nova categoria
@@ -98,14 +98,6 @@ router.post("/categoria/success", async (req, res) => {
       arrayOfErrors.push({ mensagemDeErro: "Tipo da categoria inválido!" });
     }
 
-    if(!req.body.idCategoria || req.body.idCategoria === undefined || req.body.idCategoria === null) {
-      arrayOfErrors.push({ mensagemDeErro: "ID da categoria inválido!" });
-    } 
-    
-    if (isNaN(req.body.idCategoria)) { // Verifica se o ID da categoria no html é um número, porque o idDaCategoria no schema é do tipo Number, então, se não for um número, adiciona um erro ao array de erros.
-      arrayOfErrors.push({ mensagemDeErro: "ID da categoria deve ser um número!" });
-    }
-
     if (arrayOfErrors.length > 0) {
       req.flash(
         "error_msg",
@@ -117,7 +109,6 @@ router.post("/categoria/success", async (req, res) => {
     const novaCategoria = new Categorias({
       nomeDaCategoria: req.body.nome,
       tipoDeCategoria: req.body.tipo,
-      idDaCategoria: req.body.idCategoria,
     });
 
     // Salvando a nova categoria no banco de dados
@@ -137,20 +128,29 @@ router.post("/categoria/success", async (req, res) => {
   // Verificando se o botão de visualizar categorias foi pressionado
   if (req.body.buttonViewCategories !== undefined) {
     try {
-      const categorias = await Categorias.find({}); // tem as chaves porque servem para filtrar os dados, nesse caso, estamos buscando todas as categorias
-      res.render("admin/success", {
-        categorias: categorias.map((categoria) => {
-          return {
-            nomeDaCategoria: categoria.nomeDaCategoria,
-            tipoDeCategoria: categoria.tipoDeCategoria,
-            idDaCategoria: categoria.idDaCategoria,
-          };
-        }),
-      }); // Renderiza a página de sucesso com as categorias encontradas
+      const categorias = await Categorias.find({}).lean(); // ← lean transforma para objeto simples, o find busca na tabela inteira.
+      res.render("admin/success", { categorias });
     } catch (err) {
       res.status(500).send("Erro ao buscar categorias: " + err.message);
     }
   }
+});
+
+router.post("/categoria/success/edit/:id", (req, res) => {
+  const id = req.params.id;
+
+  Categorias.findById(id)
+    .lean()
+    .then((categorias) => {
+      if (!categorias) {
+        req.flash("error_msg", "Categoria não encontrada!");
+        return res.redirect("/admin/categoria/success");
+      } else {
+        res.render("admin/editCategories", { categorias });
+      }
+    }).catch((err) => {
+      res.status(500).send(`Erro: ${err}`);
+    });
 });
 
 module.exports = router;
