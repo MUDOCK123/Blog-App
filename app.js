@@ -53,6 +53,8 @@ app.use(flash());
 
 // Configurando middleware:
 
+// Configurando o flash para exibir mensagem temporária de erro ou sucesso, e definindo as duas variáveis globais para serem chamadas em qualquer parte do codigo assim que o usuário recarregar a página, a mensagem de erro ou sucesso não será mais exibida.
+
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg"); // A mensagem de sucesso é definida no middleware e pode ser acessada nas views.
   res.locals.error_msg = req.flash("error_msg"); // A mensagem de erro é definida no middleware e pode ser acessada nas views.
