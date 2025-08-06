@@ -7,6 +7,8 @@ const admin = require("./routes/admin");
 const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
+require("dotenv").config();
+const usuario = require("./routes/usuario");
 
 // Sempre que utilizar app.use(), é para configurar e usar um middleware no Express.
 
@@ -73,6 +75,9 @@ app.get("/admin", (req, res) => {
 
 // Rota de admin, tem o /admin no início porque é a rota base de admin e está com o admin na frente, porque está sendo importadas as rotas do arquivo routes/admin.js. Exemplo: http://localhost:8081/admin/categoria
 app.use("/admin", admin);
+
+// Usando a rota usuario.
+app.use(usuario);
 
 // Outros:
 // Abrindo o servidor na porta 8081, e contem uma função de callback que é executada quando o servidor é iniciado com sucesso:

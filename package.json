@@ -1,4 +1,24 @@
 {
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/MUDOCK123/Blog-App#readme",
+  "bugs": {
+    "url": "https://github.com/MUDOCK123/Blog-App/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MUDOCK123/Blog-App.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
   "dependencies": {
     "body-parser": "^2.2.0",
     "connect-flash": "^0.1.1",
@@ -7,5 +27,6 @@
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.2",
     "mongoose": "^8.16.4"
-  }
+  },
+  "devDependencies": {}
 }
